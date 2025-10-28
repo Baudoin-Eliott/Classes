@@ -18,7 +18,7 @@ protected:
 	int hp;
 
 	std::vector<Item*> inventory;
-	int maxSizeInv = 32;
+	int maxSizeInv = 16;
 
 	Weapon* equipItem = nullptr;
 	Armor* Helmet = nullptr;
@@ -32,7 +32,7 @@ public:
 	Character(std::string n, int MxHp) : name(n), maxHp(MxHp), hp(MxHp),money(0) {};
 	Character(std::string n, int MxHp, int currentHp) : name(n), maxHp(MxHp), hp(currentHp), money(0) {};
 	Character(std::string n, int MxHp, int currentHp, int mo) : name(n), maxHp(MxHp), hp(currentHp), money(mo) {};
-
+	virtual ~Character();
 	
 	void DisplayStats();
 
@@ -44,6 +44,8 @@ public:
 	void SupprItem(Item* i);
 	void EquipItem();
 	void EquipThisItem(Weapon* item);
+	void DisplayItemActions(Item* selectedItem);
+	bool ExecuteItemAction(Item* item, const std::string& action);
 
 	void DisplayInv();
 	void AddMoney(int value) { money += value; std::cout << "Votre nouveau solde est de: " << money << std::endl; };

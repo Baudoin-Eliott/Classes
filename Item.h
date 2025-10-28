@@ -10,7 +10,7 @@ protected:
 
 public:
 	Item(const char* n, const char* desc, int val) : name(n), description(desc), value(val) {};
-	~Item() = default;
+	virtual ~Item() = default;
 	const char* GetName() { return name; };
 	const char* GetDesc() { return description; };
 	int GetValue() { return value; };

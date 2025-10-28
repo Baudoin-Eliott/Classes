@@ -7,6 +7,7 @@ protected:
 	int damage;
 	int durabilite;
 public:
+	Weapon(const char* n, const char* desc, int val, int dmg, int dur) : Item(n, desc, val), damage(dmg), durabilite(dur) {};
 	int GetDamage() { return damage; };
 	int GetDurabilite() { return durabilite; };
 

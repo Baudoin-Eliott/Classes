@@ -19,6 +19,9 @@
     <Filter Include="Fichiers d%27en-tête\Characters">
       <UniqueIdentifier>{0bc2efb2-cbb5-4049-b8c0-f3db9f774f33}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Characters">
+      <UniqueIdentifier>{48aca2cd-fa7f-47c6-a8d8-b4d706ed58cf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HealPotion.h">
@@ -45,30 +48,21 @@
     <ClInclude Include="Merchant.h">
       <Filter>Fichiers d%27en-tête\Characters</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="GameManager.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Fichiers d%27en-tête\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Items.h">
+      <Filter>Fichiers d%27en-tête\Items</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Character.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="Item.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Merchant.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="GameManager.cpp">
@@ -76,6 +70,18 @@
     </ClCompile>
     <ClCompile Include="Armor.h">
       <Filter>Fichiers d%27en-tête\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Fichiers sources\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Fichiers sources\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Merchant.cpp">
+      <Filter>Fichiers sources\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Fichiers sources\Characters</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
