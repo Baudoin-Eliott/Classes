@@ -445,7 +445,8 @@ void Character::DisplayStats()
 	GameManager::GlobalCenterPadding(totalWidth);
 	PrintCenteredLine(totalWidth, "| ", "|", "STATISTIQUES DE " + name);
 	GameManager::GlobalCenterPadding(totalWidth);
-	PrintCenteredLine(totalWidth, "| ", "|", "POINT DE VIE");
+	std::string levelText = "NIVEAU: " + std::to_string(level) + " | EXP: " + std::to_string(exp) + "/" + std::to_string(NextLevelExp);
+	PrintCenteredLine(totalWidth, "| ", "|", levelText);
 
 	
 	int barInnerWidth = totalWidth - 6; 
@@ -486,13 +487,33 @@ void Character::DisplayStats()
 	std::cout << "+" << std::endl;
 }
 
+int Character::GetArmor() {
+	return (Helmet ? Helmet->GetArmorPoint() : 0) +
+		(Chestplate ? Chestplate->GetArmorPoint() : 0) +
+		(Pants ? Pants->GetArmorPoint() : 0) +
+		(Boots ? Boots->GetArmorPoint() : 0);
+}
+
+void Character::Attack(Character& target)
+{
+	if (equipItem) {
+		target.Damage(equipItem->GetDamage());
+		bool dead = equipItem->DecreaseDurability(target.GetArmor() / 10);
+		if (dead) {
+			std::cout << "Votre arme " << equipItem->GetName() << " s'est brisee !" << std::endl;
+			SupprItem(equipItem);
+			equipItem = nullptr;
+		}
+	}
+	else 
+		target.Damage(1);
+}
+
 void Character::Damage(int dmg)
 {
+	int armor = GetArmor();
+	dmg -= armor;
 	hp -= dmg;
-	std::cout << "Le personnage " << name << " a subit " << dmg << " damage, il est maitenant a " << (hp > 0 ? hp : 0) << "Hp !" << std::endl;
-	if (hp <= 0)
-		std::cout << "Vous etes mort !" << std::endl;
-
 }
 
 void Character::Heal(int healValue)
@@ -501,6 +522,24 @@ void Character::Heal(int healValue)
 	if (hp > maxHp) hp = maxHp;
 	std::cout << "Le personnage " << name << " a ete heal de " << healValue << ", il est maitenant a " << hp << std::endl;
 
+}
+
+void Character::GainXp(int xp)
+{
+	exp += xp;
+	if (exp >= NextLevelExp) {
+		LevelUp();
+	}
+}
+
+void Character::LevelUp()
+{
+	level++;
+	exp -= NextLevelExp;
+	NextLevelExp = static_cast<int>(NextLevelExp * 1.5);
+	maxHp += 20;
+	hp = maxHp;
+	std::cout << "Felicitation " << name << ", vous avez atteint le niveau " << level << " ! Votre vie maximale est desormais de " << maxHp << "." << std::endl;
 }
 
 Character::~Character()

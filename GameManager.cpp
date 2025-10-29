@@ -8,6 +8,7 @@
 
 Player* GameManager::player = nullptr;
 std::vector<Merchant> GameManager::merchants;
+std::vector<std::vector<EnemieCara>> GameManager::zoneMonsters;
 int GameManager::lastZone = 0;
 int GameManager::currentZone = 0;
 int GameManager::running = 1;
