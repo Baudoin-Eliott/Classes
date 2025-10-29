@@ -4,13 +4,12 @@
 
 class Merchant : public Character {
 private:
-	std::vector<Item*> stock;
+
 public:
 
-	Merchant(std::string n, std::vector<Item*> inv) : Character(n, 100, 1), stock(inv) {}
+	Merchant(std::string n, std::vector<Item*> inv) : Character(n, 100, 1, inv) {}
+	const std::vector<Item*>& GetStock() const { return inventory; };
 	void ShowInv();
-	void BuyItem(Character* customer);
-	std::vector<Item*> GetStock();
-
+	void BuyItem(Character* customer, Item* item);
 	virtual ~Merchant();
 };

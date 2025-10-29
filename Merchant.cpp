@@ -1,66 +1,32 @@
 #include "Merchant.h"
-#include "Item.h"
-#include<iostream>
-
-
-Merchant::~Merchant()
-{
-	for (Item* item : stock) {
-		if (item != nullptr)
-			delete item;
-	}
-}
 
 void Merchant::ShowInv()
 {
-	std::cout << "~~~~~~~~~~~~~~~~~" << std::endl;
-	for (int i = 0; i < stock.size(); i++) {
-		 
-		std::cout << stock[i]->GetName() << ", elle vaux: " << stock[i]->GetValue() << "\n" << stock[i]->GetDesc() << std::endl;
-	}
-	std::cout << "~~~~~~~~~~~~~~~~~" << std::endl;
-
-}
-
-void Merchant::BuyItem(Character* customer)
-{
-	std::cout << "Vous avez actuelement: " << customer->GetMoney() << " piece sur vous !" << std::endl;
-
-
-	std::cout << "~~~~~~~~~~~~~~~~~" << std::endl;
-	for (int i = 0; i < stock.size(); i++) {
-		
-		std::cout << stock[i]->GetName() << ", elle vaux: " << stock[i]->GetValue() << "\n" << stock[i]->GetDesc() << "\nPour l'acheter, entre " << i << std::endl;
-		std::cout << "~~~~~~~~~~~~~~~~~" << std::endl;
-	}
-
-	int value;
-	std::cin >> value;
-	if (value < 0 || value >= stock.size()) {
-		std::cout << "valeur incorrect." << std::endl;
-		return;
-	}
-	else {
-		
-		Item* itemToBuy = stock[value];
-
-		if (customer->GetMoney() >= itemToBuy->GetValue()) {
-			
-			if (customer->AddItem(itemToBuy) == 0) {
-				customer->AddMoney(-itemToBuy->GetValue());
-				this->SupprItem(itemToBuy);
-			}
+	std::cout << "--------------" << std::endl;
+	if (inventory.size() != 0) {
+		std::cout << inventory.size() << std::endl;
+		for (int i = 0; i < inventory.size(); i++) {
+			std::cout << inventory[i]->GetName() << std::endl;
 		}
-		else
-			std::cout << "Vous n'avez pas un asser gros solde pour acheter cette item !" << std::endl;
 	}
+	else
+		std::cout << "no item" << std::endl;
+	std::cout << "--------------" << std::endl;
 }
 
-std::vector<Item*> Merchant::GetStock()
+
+void Merchant::BuyItem(Character* customer, Item* item)
 {
-	std::vector<Item*> items;
-	for (Item* item : stock) {
-		items.push_back(item);
+	if (customer->GetMoney() >= item->GetPrice()) {
+		customer->AddMoney(-item->GetPrice());
+		customer->AddItem(item);
 	}
-	return items;
+
+}
+
+Merchant::~Merchant()
+{
+	for (auto item : inventory) {
+		delete item;
+	}
 }

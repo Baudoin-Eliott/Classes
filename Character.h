@@ -32,9 +32,10 @@ protected:
 	Armor* Boots = nullptr;
 
 public:
-	Character() : name(""), maxHp(100), hp(100), money(0), level(1) {};
 
+	Character() : name(""), maxHp(100), hp(100), money(0), level(1) {};
 	Character(std::string n, int MxHp, int lvl) : name(n), maxHp(MxHp), hp(MxHp),money(0),level(lvl) {};
+	Character(std::string n, int MxHp, int lvl, std::vector<Item*> inv) : name(n), maxHp(MxHp), hp(MxHp),money(0),level(lvl), inventory(inv) {};
 	Character(std::string n, int MxHp, int currentHp, int lvl) : name(n), maxHp(MxHp), hp(currentHp), money(0), level(lvl) {};
 	Character(std::string n, int MxHp, int currentHp, int mo, int lvl) : name(n), maxHp(MxHp), hp(currentHp), money(mo), level(lvl) {};
 	Character(std::string n, int MxHp, int currentHp, int mo, int lvl,Weapon* weapon, Armor* hel, Armor* che, Armor* pan, Armor* boo) : name(n), maxHp(MxHp), hp(currentHp), level(lvl),equipItem(weapon), Helmet(hel), Chestplate(che), Pants(pan), Boots(boo), money(mo) {};

@@ -121,8 +121,6 @@ void Character::SupprItem(Item* item)
 		
 		if (inventory[i] == item)
 		{
-			
-			delete inventory[i];
 
 			inventory.erase(inventory.begin() + i);
 			return;
@@ -134,7 +132,7 @@ void Character::EquipItem()
 {
 	std::cout << "~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 	for (int i = 0; i < inventory.size(); i++) {
-		std::cout << inventory[i]->GetName() << ", a une valeur de: " << inventory[i]->GetValue() << ".\n" << inventory[i]->GetDesc() << "\n pour equiper cette item, ecrire " << i << std::endl;
+		std::cout << inventory[i]->GetName() << ", a une valeur de: " << inventory[i]->GetPrice() << ".\n" << inventory[i]->GetDesc() << "\n pour equiper cette item, ecrire " << i << std::endl;
 	}
 	std::cout << "~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 	int value;
@@ -348,7 +346,7 @@ void Character::DisplayInv()
 				}
 				
 				else if (i == LINE_VALUE) {
-					std::string detail = "Valeur: " + std::to_string(selectedItem->GetValue()) + " Or";
+					std::string detail = "Valeur: " + std::to_string(selectedItem->GetPrice()) + " Or";
 					std::cout << " " << detail;
 					for (int p = 0; p < DETAIL_WIDTH - 3 - detail.length(); ++p) std::cout << " ";
 				}
@@ -544,7 +542,4 @@ void Character::LevelUp()
 
 Character::~Character()
 {
-	for (Item* item : inventory) {
-		delete item;
-	}
 }

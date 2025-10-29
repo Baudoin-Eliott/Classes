@@ -201,9 +201,9 @@ std::vector<Merchant> SetMerchant() {
 	std::vector<Merchant> merchants;
 	std::vector<Item*> inv;
 
-	inv.push_back(new HealPotion("Potion de soins", "Regenere 10 hp !", 5));
+	inv.push_back(new HealPotion("Potion de soins", "Regenere 10 hp !", 15, 5));
 	inv.push_back(new Weapon("Epee en fer", "Une meilleure epee que l'epee en bois !", 10, 5, 50));
-	inv.push_back(new PoisonPotion("Potion de poison", "Enleve 10 hp !", 5));
+	inv.push_back(new PoisonPotion("Potion de poison", "Enleve 10 hp !", 15, 5));
 
 	Merchant merchant("blob", inv);
 	merchants.push_back(merchant);
@@ -320,14 +320,18 @@ void Setup() {
 void Merchants() {
 
 	Merchant& currentMerchant = Game.merchants[Game.currentZone];
-	currentMerchant.ShowInv();
-	/*
 	std::vector<std::string> desc;
-	for (Item* it : currentMerchant.GetStock()) {
-		if (it == nullptr) continue;
-		desc.push_back(std::string(it->GetName()) + " - " + std::to_string(it->GetValue()) + " pieces");
+	currentMerchant.ShowInv();
+	std::vector<Item*> stock = currentMerchant.GetStock();
+	for (int i = 0; i < stock.size(); i++) {
+		std::cout << stock[i]->GetName();
 	}
-
+	std::cout << "test";
+	for (Item* item : stock) {
+		if (item == nullptr) continue;
+		std::string str = std::string(item->GetName()) + "--" + std::to_string(item->GetPrice()) + "piece";
+		desc.push_back(str);
+	}
 
 	desc.push_back("Quitter le marchand");
 	int action = -1;
@@ -350,14 +354,15 @@ void Merchants() {
 			break;
 
 		case('\r'): case(' '):
-			currentMerchant.BuyItem(Game.player);
 			break;
 		}
 	}
 	if (choice == desc.size() - 1) {
 		Game.ChangeZone(Game.lastZone);
 	}
-	*/
+	else
+		currentMerchant.BuyItem(Game.player, stock[choice]);
+
 }
 
 void ZoneFight() {
@@ -367,7 +372,7 @@ void ZoneFight() {
 
 	while (fight) {
 		//on tire des chara au hazard
-		int randIndex = GenerateRandomNumber(0, monsters.size());
+		int randIndex = GenerateRandomNumber(0, monsters.size() - 1);
 		EnemieCara enemyCara = monsters[randIndex];
 
 		//on vien generer le monstre "unique"
@@ -462,7 +467,7 @@ void ZoneFight() {
 				if (fightChoice >= fightButtons.size()) fightChoice = 0;
 				break;
 			}
-			
+
 		}
 		switch (fightChoice)
 		{
@@ -538,8 +543,10 @@ int main() {
 	Setup();
 
 	history();
-
-
+	Item* popo = new HealPotion("Heal Potion", "une potion qui soigne 10 HP", 15, 10);
+	Item* sword = new Weapon("Wood Sword", "Une belle epee en bois", 10, 4, 20);
+	Game.player->AddItem(popo);
+	Game.player->AddItem(sword);
 	while (Game.running == 1) {
 		switch (Game.currentZone) {
 		case(-2):
